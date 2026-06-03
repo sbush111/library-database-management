@@ -1,0 +1,58 @@
+checkouts
+---------
+checkout_id integer PK
+customer_id integer FK
+book_id integer FK
+checkout_date date NOT NULL
+due_date date NOT NULL
+return_date date
+
+books
+-----
+book_id integer PK
+author_id integer FK
+genre_id integer FK
+title text NOT NULL
+desc text
+
+author
+------
+author_id integer PK
+first_name text NOT NULL
+middle_name text
+last_name text NOT NULL
+
+genres
+------
+genre_id integer PK
+name text NOT NULL
+desc text
+
+
+customers
+---------
+customer_id PK 
+first_name text NOT NULL
+last_name text NOT NULL
+address1 text NOT NULL
+address2 text
+city text NOT NULL
+state char(2) NOT NULL
+zip char(9) NOT NULL
+
+branch
+------
+branch_id integer PK
+branch_name text NOT NULL
+address1 text NOT NULL
+address2 text
+city text NOT NULL
+state char(2) NOT NULL
+zip char(9) NOT NULL
+
+inventory
+---------
+branch_id integer FK PK
+book_id integer FK PK
+total integer integer NOT NULL
+checked_out integer NOT NULL
