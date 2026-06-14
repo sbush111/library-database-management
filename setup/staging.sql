@@ -1,5 +1,3 @@
-CREATE DATABASE city_library;
-
 CREATE TABLE temp_raw_data (
 	BookID integer,
 	Title text,
@@ -12,3 +10,5 @@ CREATE TABLE temp_raw_data (
 	BorrowDate text,
 	ReturnDate text
 );
+
+\copy temp_raw_data FROM 'city_library_data.csv' CSV HEADER;
