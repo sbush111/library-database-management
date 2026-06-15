@@ -11,17 +11,17 @@ SELECT
 --Which user currently has the most books checked out?
 
 SELECT 
-    u.id, 
-    CONCAT(u.first_name, ' ', u.last_name) AS customer, 
+    m.id, 
+    CONCAT(m.first_name, ' ', m.last_name) AS member, 
     COUNT(*) AS currently_borrowing, 
     ARRAY_TO_STRING(ARRAY_AGG(b.title), ', ') AS books
-FROM customers u
+FROM members m
 JOIN checkouts k
-ON u.id = k.customer_id
+ON m.id = k.member_id
 JOIN books b
 ON k.book_id = b.id
 WHERE return_date IS NULL
-GROUP BY u.id, u.first_name, u.last_name
+GROUP BY m.id, m.first_name, m.last_name
 ORDER BY currently_borrowing DESC
 LIMIT 1;
 
