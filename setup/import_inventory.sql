@@ -1,3 +1,5 @@
+/* Create table representing the library system's inventory. 
+Each row represents a particular branch's inventory for a particular book. */
 CREATE TABLE inventory (
     branch_id integer,
     book_id integer,
@@ -14,8 +16,7 @@ CREATE TABLE inventory (
         ON DELETE CASCADE
 );
 
-
-
+/* Insert data into inventory tables. */
 INSERT INTO inventory (branch_id, book_id, count)
 SELECT branchid, bookid, COUNT(*)
 FROM temp_raw_data
