@@ -1,14 +1,20 @@
+# Prerequisities
+- Install Docker
+- Install PSQL Shell
+- Install Git
+
 # Project setup
 
-1. Install Docker
-2. Install PSQL shell
-3. Install Git
-4. Clone Repo
-5. Create .env file with `POSTGRES_USER=your_username_here` and `POSTGRES_PASSWORD=your_password_here`
-6. Run `docker compose up` to launch the server
-7. Connect to the server and enter the interactive PSQL shell with the command `psql -U your_username_here -d librarydb`, and enter your password when prompted.
-8. Close the server with `docker compose down` when you are finished.
+1. Clone Repo
+2. Create a text file called `.env`. Inside you will define a username and password to use with the PostreSQL server. See `.env.example` for an example of how the file should look.
+3. Start the Docker engine with `docker start`.
+3. Run `docker compose up` to launch the PostreSQL server.
+4. Connect to the server and enter the interactive PSQL shell with the command `psql -U your_username_here -d librarydb`, and enter your password when prompted.
+5. Setup the database and import the relevant data by running `\i setup.sql` within the PSQL shell.
 
-# Setting up the database
+# Project stopping
 
-1. With the server up, run `setup.sql` from outside of the shell with the command `psql -U your_username_here -d librarydb -f setup.sql` or from within the interactive shell with `\i setup.sql`.
+1. Run `\q` to exit the PSQL shell.
+2. Close the server with `docker compose down`.
+3. If you want to fully delete the server, run `docker compose down -v`. 
+4. Stop the Docker engine with `docker stop`.
