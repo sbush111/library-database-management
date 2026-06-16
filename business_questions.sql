@@ -1,14 +1,25 @@
---How many books are currently checked out?
+/* Question One: Is the book "Million size country." currrently available anywhere in the library network? */
 
-SELECT 
-    (SELECT COUNT(*) - COUNT(return_date)
-        FROM checkouts
-        ) AS checked_out,
-    (SELECT SUM(count)
-        FROM inventory
-        ) AS total;
+WITH total AS (
+    SELECT count as total_copies
+    FROM inventory i
+    JOIN books b ON i.book_id = b.id
+    WHERE title = 'Million size country.'
+),
+available AS (
+    SELECT COUNT(*) as available_copies
+    FROM checkouts c
+    JOIN books b on c.book_id = b.id
+    WHERE b.title = 'Million size country.' AND return_date IS NOT NULL
+)
+SELECT a.available_copies, t.total_copies
+FROM total t
+CROSS JOIN available a;
 
---Which user currently has the most books checked out?
+-- No. There is one copy and it is currently checked out.
+
+
+/* Question Two: Which user currently has the most books checked out? */
 
 SELECT 
     m.id, 
@@ -25,7 +36,10 @@ GROUP BY m.id, m.first_name, m.last_name
 ORDER BY currently_borrowing DESC
 LIMIT 1;
 
---Which branch has the smallest percentage of their books checked out?
+-- Anna Robinson currently has two books checked out.
+
+
+/* Question Three: Which branch has the smallest percentage of their books checked out? */
 
 WITH inventory_per_branch AS (
     SELECT branch_id, COUNT(*) AS count
