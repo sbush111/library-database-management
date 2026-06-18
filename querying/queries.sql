@@ -19,24 +19,18 @@ CROSS JOIN available a;
 -- No. There is one copy and it is currently checked out.
 
 
-/* Question Two: Which user currently has the most books checked out? */
+/* Question Two: Which branch has the largest inventory of history books? */
 
-SELECT 
-    m.id, 
-    CONCAT(m.first_name, ' ', m.last_name) AS member, 
-    COUNT(*) AS currently_borrowing, 
-    ARRAY_TO_STRING(ARRAY_AGG(b.title), ', ') AS books
-FROM members m
-JOIN checkouts k
-ON m.id = k.member_id
-JOIN books b
-ON k.book_id = b.id
-WHERE return_date IS NULL
-GROUP BY m.id, m.first_name, m.last_name
-ORDER BY currently_borrowing DESC
-LIMIT 1;
+SELECT br.name branch_name, SUM(count) as history_book_inventory
+FROM inventory i
+JOIN books bk ON bk.id = i.book_id
+JOIN genres g ON g.id = bk.genre_id
+JOIN branches br ON br.id = i.branch_id
+WHERE g.name = 'History'
+GROUP BY br.name
+ORDER BY history_book_inventory DESC;
 
--- Anna Robinson currently has two books checked out.
+-- Branch 3 has the largest inventory, at 17 books.
 
 
 /* Question Three: Which branch has the smallest percentage of their books checked out? */
