@@ -60,3 +60,5 @@ ON i.branch_id = k.branch_id
 JOIN branches b
 ON i.branch_id = b.id
 ORDER BY percentage;
+
+-- Branch-5 has the smallest percentage, with 46.23% of its inventory currently checked out.
